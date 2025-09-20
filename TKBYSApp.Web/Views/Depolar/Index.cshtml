@@ -1,0 +1,32 @@
+@model IEnumerable<Depo>
+@{
+    ViewData["Title"] = "Depolar";
+}
+
+<h1>Depolar</h1>
+<p>
+    <a class="btn btn-primary" asp-action="Create">Yeni Depo</a>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Açıklama</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var depo in Model)
+{
+        <tr>
+            <td>@depo.Ad</td>
+            <td>@depo.Aciklama</td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@depo.Id">Detay</a>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@depo.Id">Düzenle</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@depo.Id">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

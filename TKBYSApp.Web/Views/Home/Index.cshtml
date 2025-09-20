@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="text-center">
+    <h1 class="display-5">TKBYS Entegrasyon Portalı</h1>
+    <p class="lead">Taşınır Kayıt ve Yönetim Sistemi ile entegre çalışan modern web uygulamasına hoş geldiniz.</p>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Satın Alma Talepleri</h5>
+                <p class="card-text">Personel taleplerini takip edin, satın alma memuru ve harcama yetkilisi onay süreçlerini yönetin.</p>
+                <a asp-controller="SatinAlmaTalepleri" asp-action="Index" class="btn btn-outline-primary">Talepleri Aç</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Malzeme Yönetimi</h5>
+                <p class="card-text">Depolardaki malzemeleri izleyin, kayıtları güncelleyin ve zimmet süreçlerini yönlendirin.</p>
+                <a asp-controller="Malzemeler" asp-action="Index" class="btn btn-outline-primary">Malzemeleri Gör</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Yetkilendirme</h5>
+                <p class="card-text">Kullanıcı rollerini yönetin ve süreçlerdeki sorumlulukları tanımlayın.</p>
+                <a asp-controller="Personeller" asp-action="Index" class="btn btn-outline-primary">Personel Listesi</a>
+            </div>
+        </div>
+    </div>
+</div>

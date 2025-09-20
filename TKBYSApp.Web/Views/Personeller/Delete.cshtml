@@ -1,0 +1,23 @@
+@model Personel
+@{
+    ViewData["Title"] = "Personel Sil";
+    var roller = ViewData["Roller"] as IEnumerable<string> ?? Enumerable.Empty<string>();
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3>Bu personeli silmek istediğinize emin misiniz?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">Ad Soyad</dt>
+        <dd class="col-sm-9">@Model.AdSoyad</dd>
+        <dt class="col-sm-3">Roller</dt>
+        <dd class="col-sm-9">@string.Join(", ", roller)</dd>
+    </dl>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

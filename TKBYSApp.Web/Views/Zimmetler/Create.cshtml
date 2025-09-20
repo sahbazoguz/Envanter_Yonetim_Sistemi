@@ -1,0 +1,26 @@
+@model ZimmetCreateViewModel
+@{
+    ViewData["Title"] = "Yeni Zimmet";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="MalzemeId" class="form-label"></label>
+        <select asp-for="MalzemeId" class="form-select" asp-items="Model.Malzemeler"></select>
+        <span asp-validation-for="MalzemeId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PersonelId" class="form-label"></label>
+        <select asp-for="PersonelId" class="form-select" asp-items="Model.Personeller"></select>
+        <span asp-validation-for="PersonelId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">Geri</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

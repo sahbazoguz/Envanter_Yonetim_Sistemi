@@ -1,0 +1,53 @@
+@model Malzeme
+@{
+    ViewData["Title"] = "Malzeme Düzenle";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="KayitTarihi" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="Ad" class="form-label"></label>
+        <input asp-for="Ad" class="form-control" />
+        <span asp-validation-for="Ad" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="TKBYSNo" class="form-label"></label>
+        <input asp-for="TKBYSNo" class="form-control" />
+        <span asp-validation-for="TKBYSNo" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Ozellikler" class="form-label"></label>
+        <textarea asp-for="Ozellikler" class="form-control"></textarea>
+        <span asp-validation-for="Ozellikler" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Adet" class="form-label"></label>
+        <input asp-for="Adet" class="form-control" />
+        <span asp-validation-for="Adet" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="DepoId" class="form-label"></label>
+        <select asp-for="DepoId" class="form-select" asp-items="@(ViewData["DepoId"] as SelectList)"></select>
+        <span asp-validation-for="DepoId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Durum" class="form-label"></label>
+        <select asp-for="Durum" class="form-select" asp-items="Html.GetEnumSelectList<MalzemeDurum>()"></select>
+        <span asp-validation-for="Durum" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Aciklama" class="form-label"></label>
+        <textarea asp-for="Aciklama" class="form-control"></textarea>
+        <span asp-validation-for="Aciklama" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,27 @@
+@model Zimmet
+@{
+    ViewData["Title"] = "Zimmet Detayı";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Malzeme</dt>
+            <dd class="col-sm-9">@Model.Malzeme?.Ad</dd>
+            <dt class="col-sm-3">Personel</dt>
+            <dd class="col-sm-9">@Model.Personel?.AdSoyad</dd>
+            <dt class="col-sm-3">Durum</dt>
+            <dd class="col-sm-9">@Model.Durum</dd>
+            <dt class="col-sm-3">Zimmet Tarihi</dt>
+            <dd class="col-sm-9">@Model.ZimmetTarihi.ToLocalTime().ToString("f")</dd>
+            <dt class="col-sm-3">İade Tarihi</dt>
+            <dd class="col-sm-9">@Model.IadeTarihi?.ToLocalTime().ToString("f")</dd>
+            <dt class="col-sm-3">Onaylayan</dt>
+            <dd class="col-sm-9">@Model.OnaylayanYetkili?.AdSoyad</dd>
+        </dl>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Listeye Dön</a>

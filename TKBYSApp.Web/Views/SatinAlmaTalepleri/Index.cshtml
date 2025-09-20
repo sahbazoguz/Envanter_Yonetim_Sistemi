@@ -1,0 +1,64 @@
+@model IEnumerable<SatinAlmaTalep>
+@{
+    ViewData["Title"] = "Satın Alma Talepleri";
+}
+
+<h1>Satın Alma Talepleri</h1>
+<p>
+    @if (User.IsInRole(RoleConstants.Admin) || User.IsInRole(RoleConstants.Personel))
+    {
+        <a class="btn btn-primary" asp-action="Create">Yeni Talep</a>
+    }
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Malzeme</th>
+            <th>Talep Eden</th>
+            <th>Durum</th>
+            <th>Talep Tarihi</th>
+            <th>Belge</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var talep in Model)
+{
+        <tr>
+            <td>@talep.MalzemeAdi</td>
+            <td>@talep.TalepEdenPersonel?.AdSoyad</td>
+            <td>@talep.Durum</td>
+            <td>@talep.TalepTarihi.ToLocalTime().ToString("g")</td>
+            <td>@talep.BelgeYolu</td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@talep.Id">Detay</a>
+                @if (talep.Durum == SatinAlmaTalepDurum.TalepEdildi && (User.IsInRole(RoleConstants.Admin) || User.IsInRole(RoleConstants.SatinAlmaMemuru)))
+                {
+                    <form asp-action="Baslat" asp-route-id="@talep.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-info">İncelemeye Al</button>
+                    </form>
+                }
+                @if (talep.Durum == SatinAlmaTalepDurum.SatinAlmaOnayinda && (User.IsInRole(RoleConstants.Admin) || User.IsInRole(RoleConstants.SatinAlmaMemuru)))
+                {
+                    <form asp-action="HarcamaYetkilisineGonder" asp-route-id="@talep.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-warning">Onaya Gönder</button>
+                    </form>
+                }
+                @if (talep.Durum == SatinAlmaTalepDurum.HarcamaYetkilisiOnayinda && (User.IsInRole(RoleConstants.Admin) || User.IsInRole(RoleConstants.HarcamaYetkilisi)))
+                {
+                    <form asp-action="Onayla" asp-route-id="@talep.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-success">Onayla</button>
+                    </form>
+                    <form asp-action="Reddet" asp-route-id="@talep.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger">Reddet</button>
+                    </form>
+                }
+                @if (talep.Durum == SatinAlmaTalepDurum.Onaylandi && (User.IsInRole(RoleConstants.Admin) || User.IsInRole(RoleConstants.SatinAlmaMemuru)))
+                {
+                    <a class="btn btn-sm btn-primary" asp-action="Tamamla" asp-route-id="@talep.Id">Tamamla</a>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

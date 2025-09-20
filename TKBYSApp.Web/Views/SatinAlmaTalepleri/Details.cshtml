@@ -1,0 +1,27 @@
+@model SatinAlmaTalep
+@{
+    ViewData["Title"] = "Talep Detayı";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Malzeme</dt>
+            <dd class="col-sm-9">@Model.MalzemeAdi</dd>
+            <dt class="col-sm-3">Talep Eden</dt>
+            <dd class="col-sm-9">@Model.TalepEdenPersonel?.AdSoyad</dd>
+            <dt class="col-sm-3">Durum</dt>
+            <dd class="col-sm-9">@Model.Durum</dd>
+            <dt class="col-sm-3">Talep Tarihi</dt>
+            <dd class="col-sm-9">@Model.TalepTarihi.ToLocalTime().ToString("f")</dd>
+            <dt class="col-sm-3">Gerekçe</dt>
+            <dd class="col-sm-9">@Model.Gerekce</dd>
+            <dt class="col-sm-3">Belge</dt>
+            <dd class="col-sm-9">@Model.BelgeYolu</dd>
+        </dl>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Listeye Dön</a>

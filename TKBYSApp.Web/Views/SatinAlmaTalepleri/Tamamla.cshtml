@@ -1,0 +1,21 @@
+@model SatinAlmaTamamlamaViewModel
+@{
+    ViewData["Title"] = "Satın Alma Tamamlama";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Tamamla" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="BelgeYolu" class="form-label"></label>
+        <input asp-for="BelgeYolu" class="form-control" />
+        <span asp-validation-for="BelgeYolu" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Tamamla</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

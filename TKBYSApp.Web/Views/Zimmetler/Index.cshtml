@@ -1,0 +1,57 @@
+@model IEnumerable<Zimmet>
+@{
+    ViewData["Title"] = "Zimmetler";
+}
+
+<h1>Zimmetler</h1>
+<p>
+    @if (User.IsInRole(RoleConstants.Admin) || User.IsInRole(RoleConstants.TasinirKayitYetkilisi))
+    {
+        <a class="btn btn-primary" asp-action="Create">Yeni Zimmet</a>
+    }
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Malzeme</th>
+            <th>Personel</th>
+            <th>Durum</th>
+            <th>Zimmet Tarihi</th>
+            <th>Iade Tarihi</th>
+            <th>Onaylayan</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>@item.Malzeme?.Ad</td>
+            <td>@item.Personel?.AdSoyad</td>
+            <td>@item.Durum</td>
+            <td>@item.ZimmetTarihi.ToLocalTime().ToString("g")</td>
+            <td>@item.IadeTarihi?.ToLocalTime().ToString("g")</td>
+            <td>@item.OnaylayanYetkili?.AdSoyad</td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@item.Id">Detay</a>
+                @if (item.Durum == ZimmetDurum.OnayBekliyor && (User.IsInRole(RoleConstants.Admin) || User.IsInRole(RoleConstants.HarcamaYetkilisi)))
+                {
+                    <form asp-action="Approve" asp-route-id="@item.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-success">Onayla</button>
+                    </form>
+                }
+                @if (item.Durum == ZimmetDurum.Aktif && (User.IsInRole(RoleConstants.Admin) || User.IsInRole(RoleConstants.TasinirKayitYetkilisi)))
+                {
+                    <form asp-action="Return" asp-route-id="@item.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-warning">İade Al</button>
+                    </form>
+                }
+                @if (item.Durum == ZimmetDurum.OnayBekliyor && (User.IsInRole(RoleConstants.Admin) || User.IsInRole(RoleConstants.TasinirKayitYetkilisi)))
+                {
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

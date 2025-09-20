@@ -1,0 +1,32 @@
+@model Malzeme
+@{
+    ViewData["Title"] = "Malzeme Detayı";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Ad</dt>
+            <dd class="col-sm-9">@Model.Ad</dd>
+            <dt class="col-sm-3">TKBYS No</dt>
+            <dd class="col-sm-9">@Model.TKBYSNo</dd>
+            <dt class="col-sm-3">Depo</dt>
+            <dd class="col-sm-9">@Model.Depo?.Ad</dd>
+            <dt class="col-sm-3">Adet</dt>
+            <dd class="col-sm-9">@Model.Adet</dd>
+            <dt class="col-sm-3">Durum</dt>
+            <dd class="col-sm-9">@Model.Durum</dd>
+            <dt class="col-sm-3">Özellikler</dt>
+            <dd class="col-sm-9">@Model.Ozellikler</dd>
+            <dt class="col-sm-3">Açıklama</dt>
+            <dd class="col-sm-9">@Model.Aciklama</dd>
+            <dt class="col-sm-3">Kayıt Tarihi</dt>
+            <dd class="col-sm-9">@Model.KayitTarihi.ToLocalTime().ToString("f")</dd>
+        </dl>
+    </div>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning mt-3">Düzenle</a>
+<a asp-action="Index" class="btn btn-secondary mt-3">Listeye Dön</a>

@@ -1,0 +1,26 @@
+@model SatinAlmaTalep
+@{
+    ViewData["Title"] = "Yeni Satın Alma Talebi";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="MalzemeAdi" class="form-label"></label>
+        <input asp-for="MalzemeAdi" class="form-control" />
+        <span asp-validation-for="MalzemeAdi" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Gerekce" class="form-label"></label>
+        <textarea asp-for="Gerekce" class="form-control"></textarea>
+        <span asp-validation-for="Gerekce" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Talep Oluştur</button>
+    <a asp-action="Index" class="btn btn-secondary">Geri</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
