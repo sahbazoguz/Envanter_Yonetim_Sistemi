@@ -12,6 +12,7 @@ public class HomeController(ILogger<HomeController> logger) : Controller
 
     public IActionResult Index()
     {
+        _logger.LogInformation("Anasayfa görüntülendi: {Timestamp}", DateTimeOffset.UtcNow);
         return View();
     }
 
