@@ -35,9 +35,24 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(e => e.Ad).HasMaxLength(200).IsRequired();
             entity.Property(e => e.Ozellikler).HasMaxLength(500);
             entity.Property(e => e.Aciklama).HasMaxLength(500);
+            entity.Property(e => e.BarKod).HasMaxLength(200);
+            entity.Property(e => e.Cinsi).HasMaxLength(200);
+            entity.Property(e => e.EkOzellik).HasMaxLength(500);
+            entity.Property(e => e.MarkaAdi).HasMaxLength(200);
+            entity.Property(e => e.Modeli).HasMaxLength(200);
+            entity.Property(e => e.OlcuAdi).HasMaxLength(200);
+            entity.Property(e => e.SicilNo).HasMaxLength(100);
+            entity.Property(e => e.SeriNo).HasMaxLength(200);
+            entity.Property(e => e.FisSonDurum).HasMaxLength(200);
+            entity.Property(e => e.VerildigiYerBirim).HasMaxLength(200);
+            entity.Property(e => e.TcNumarasi).HasMaxLength(11);
+            entity.Property(e => e.FisNo).HasMaxLength(100);
+            entity.Property(e => e.AmbarAdi).HasMaxLength(200);
             entity.Property(e => e.TKBYSNo).HasMaxLength(100);
             entity.Property(e => e.Durum).HasConversion<string>().HasMaxLength(50);
             entity.Property(e => e.KayitTarihi).HasColumnType("datetime2");
+            entity.Property(e => e.Tarih).HasColumnType("datetime2");
+            entity.Property(e => e.KurumGirisTarihi).HasColumnType("datetime2");
             entity.HasOne(e => e.Depo)
                   .WithMany(d => d.Malzemeler)
                   .HasForeignKey(e => e.DepoId)
@@ -45,6 +60,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.HasIndex(e => e.TKBYSNo)
                   .IsUnique()
                   .HasFilter("[TKBYSNo] IS NOT NULL");
+            entity.HasIndex(e => e.BarKod)
+                  .IsUnique()
+                  .HasFilter("[BarKod] IS NOT NULL");
         });
 
         builder.Entity<Zimmet>(entity =>

@@ -6,16 +6,29 @@
 <h1>Malzemeler</h1>
 <p>
     <a class="btn btn-primary" asp-action="Create">Yeni Malzeme</a>
+    <a class="btn btn-outline-secondary ms-2" asp-action="Import">Excel'den İçe Aktar</a>
 </p>
+@if (TempData["StatusMessage"] is string statusMessage)
+{
+    <div class="alert alert-success">@statusMessage</div>
+}
+@if (TempData["ErrorMessage"] is string errorMessage)
+{
+    <div class="alert alert-warning">@errorMessage</div>
+}
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Ad</th>
-            <th>TKBYS No</th>
-            <th>Depo</th>
-            <th>Adet</th>
+            <th>Barkod</th>
+            <th>Cinsi</th>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Seri No</th>
+            <th>Verildiği Birim</th>
+            <th>TC</th>
+            <th>Ambar</th>
             <th>Durum</th>
-            <th>Kayıt Tarihi</th>
+            <th>Giriş Tarihi</th>
             <th></th>
         </tr>
     </thead>
@@ -23,12 +36,16 @@
 @foreach (var item in Model)
 {
         <tr>
-            <td>@item.Ad</td>
-            <td>@item.TKBYSNo</td>
-            <td>@item.Depo?.Ad</td>
-            <td>@item.Adet</td>
+            <td>@item.BarKod</td>
+            <td>@item.Cinsi</td>
+            <td>@item.MarkaAdi</td>
+            <td>@item.Modeli</td>
+            <td>@item.SeriNo</td>
+            <td>@item.VerildigiYerBirim</td>
+            <td>@item.TcNumarasi</td>
+            <td>@item.AmbarAdi ?? item.Depo?.Ad</td>
             <td>@item.Durum</td>
-            <td>@item.KayitTarihi.ToLocalTime().ToString("g")</td>
+            <td>@item.KurumGirisTarihi?.ToString("d")</td>
             <td class="text-end">
                 <a class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@item.Id">Detay</a>
                 <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
