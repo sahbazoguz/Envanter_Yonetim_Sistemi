@@ -1,18 +1,23 @@
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TKBYSApp.Web.Data;
 using TKBYSApp.Web.Models;
 using TKBYSApp.Web.Models.Enums;
+using TKBYSApp.Web.Services.Interfaces;
 
 namespace TKBYSApp.Web.Controllers;
 
 [Authorize]
-public class MalzemelerController(ApplicationDbContext context) : Controller
+public class MalzemelerController(ApplicationDbContext context, IMalzemeImportService importService) : Controller
 {
     private readonly ApplicationDbContext _context = context;
+    private readonly IMalzemeImportService _importService = importService;
 
     public async Task<IActionResult> Index()
     {
@@ -48,7 +53,7 @@ public class MalzemelerController(ApplicationDbContext context) : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     [Authorize(Roles = $"{RoleConstants.Admin},{RoleConstants.TasinirKayitYetkilisi}")]
-    public async Task<IActionResult> Create([Bind("Id,TKBYSNo,Ad,Ozellikler,Adet,Aciklama,DepoId,Durum")] Malzeme malzeme)
+    public async Task<IActionResult> Create([Bind("Id,TKBYSNo,Ad,Ozellikler,Adet,Aciklama,BarKod,Cinsi,EkOzellik,MarkaAdi,Modeli,OlcuAdi,SicilNo,SeriNo,FisSonDurum,VerildigiYerBirim,TcNumarasi,FisNo,Tarih,AmbarAdi,KurumGirisTarihi,DepoId,Durum")] Malzeme malzeme)
     {
         if (ModelState.IsValid)
         {
@@ -83,7 +88,7 @@ public class MalzemelerController(ApplicationDbContext context) : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     [Authorize(Roles = $"{RoleConstants.Admin},{RoleConstants.TasinirKayitYetkilisi}")]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,TKBYSNo,Ad,Ozellikler,Adet,Aciklama,DepoId,Durum,KayitTarihi")] Malzeme malzeme)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,TKBYSNo,Ad,Ozellikler,Adet,Aciklama,BarKod,Cinsi,EkOzellik,MarkaAdi,Modeli,OlcuAdi,SicilNo,SeriNo,FisSonDurum,VerildigiYerBirim,TcNumarasi,FisNo,Tarih,AmbarAdi,KurumGirisTarihi,DepoId,Durum,KayitTarihi")] Malzeme malzeme)
     {
         if (id != malzeme.Id)
         {
@@ -145,6 +150,42 @@ public class MalzemelerController(ApplicationDbContext context) : Controller
             _context.Malzemeler.Remove(malzeme);
             await _context.SaveChangesAsync();
         }
+        return RedirectToAction(nameof(Index));
+    }
+
+    [Authorize(Roles = $"{RoleConstants.Admin},{RoleConstants.TasinirKayitYetkilisi}")]
+    public IActionResult Import()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Authorize(Roles = $"{RoleConstants.Admin},{RoleConstants.TasinirKayitYetkilisi}")]
+    public async Task<IActionResult> Import(IFormFile? excelFile, CancellationToken cancellationToken)
+    {
+        if (excelFile == null)
+        {
+            ModelState.AddModelError(nameof(excelFile), "Lütfen yüklemek için bir Excel dosyası seçin.");
+            return View();
+        }
+
+        try
+        {
+            var result = await _importService.ImportAsync(excelFile, cancellationToken);
+
+            TempData["StatusMessage"] = $"Excel importu tamamlandı. Yeni kayıt: {result.CreatedCount}, güncellenen kayıt: {result.UpdatedCount}.";
+
+            if (result.Errors.Count > 0)
+            {
+                TempData["ErrorMessage"] = string.Join(" ", result.Errors);
+            }
+        }
+        catch (Exception ex)
+        {
+            TempData["ErrorMessage"] = ex.Message;
+        }
+
         return RedirectToAction(nameof(Index));
     }
 

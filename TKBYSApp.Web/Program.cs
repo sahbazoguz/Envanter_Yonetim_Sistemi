@@ -29,19 +29,20 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<ISatinAlmaTalepService, SatinAlmaTalepService>();
 builder.Services.AddScoped<IZimmetService, ZimmetService>();
+builder.Services.AddScoped<IMalzemeImportService, MalzemeImportService>();
 
 var app = builder.Build();
 
-// --- OTOMATÝK MIGRATION + SEED ---
+// --- OTOMATÄ°K MIGRATION + SEED ---
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var db = services.GetRequiredService<ApplicationDbContext>();
 
-    // Tablolar eksikse oluþturur
+    // Tablolar eksikse oluÅŸturur
     await db.Database.MigrateAsync();
 
-    // Rolleri ve ilk kullanýcýyý ekler
+    // Rolleri ve ilk kullanÄ±cÄ±yÄ± ekler
     await SeedData.InitializeAsync(services);
 }
 // ---------------------------------

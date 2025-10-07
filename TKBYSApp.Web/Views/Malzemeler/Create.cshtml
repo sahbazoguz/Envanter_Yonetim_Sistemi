@@ -12,10 +12,106 @@
         <input asp-for="Ad" class="form-control" />
         <span asp-validation-for="Ad" class="text-danger"></span>
     </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="BarKod" class="form-label"></label>
+            <input asp-for="BarKod" class="form-control" />
+            <span asp-validation-for="BarKod" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="TKBYSNo" class="form-label"></label>
+            <input asp-for="TKBYSNo" class="form-control" />
+            <span asp-validation-for="TKBYSNo" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Cinsi" class="form-label"></label>
+            <input asp-for="Cinsi" class="form-control" />
+            <span asp-validation-for="Cinsi" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="MarkaAdi" class="form-label"></label>
+            <input asp-for="MarkaAdi" class="form-control" />
+            <span asp-validation-for="MarkaAdi" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Modeli" class="form-label"></label>
+            <input asp-for="Modeli" class="form-control" />
+            <span asp-validation-for="Modeli" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="OlcuAdi" class="form-label"></label>
+            <input asp-for="OlcuAdi" class="form-control" />
+            <span asp-validation-for="OlcuAdi" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="SicilNo" class="form-label"></label>
+            <input asp-for="SicilNo" class="form-control" />
+            <span asp-validation-for="SicilNo" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="SeriNo" class="form-label"></label>
+            <input asp-for="SeriNo" class="form-control" />
+            <span asp-validation-for="SeriNo" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="FisNo" class="form-label"></label>
+            <input asp-for="FisNo" class="form-control" />
+            <span asp-validation-for="FisNo" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="FisSonDurum" class="form-label"></label>
+            <input asp-for="FisSonDurum" class="form-control" />
+            <span asp-validation-for="FisSonDurum" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="VerildigiYerBirim" class="form-label"></label>
+            <input asp-for="VerildigiYerBirim" class="form-control" />
+            <span asp-validation-for="VerildigiYerBirim" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="TcNumarasi" class="form-label"></label>
+            <input asp-for="TcNumarasi" class="form-control" />
+            <span asp-validation-for="TcNumarasi" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Tarih" class="form-label"></label>
+            <input asp-for="Tarih" class="form-control" type="date" />
+            <span asp-validation-for="Tarih" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="KurumGirisTarihi" class="form-label"></label>
+            <input asp-for="KurumGirisTarihi" class="form-control" type="date" />
+            <span asp-validation-for="KurumGirisTarihi" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="AmbarAdi" class="form-label"></label>
+            <input asp-for="AmbarAdi" class="form-control" />
+            <span asp-validation-for="AmbarAdi" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="DepoId" class="form-label"></label>
+            <select asp-for="DepoId" class="form-select" asp-items="@(ViewData["DepoId"] as SelectList)"></select>
+            <span asp-validation-for="DepoId" class="text-danger"></span>
+        </div>
+    </div>
     <div class="mb-3">
-        <label asp-for="TKBYSNo" class="form-label"></label>
-        <input asp-for="TKBYSNo" class="form-control" />
-        <span asp-validation-for="TKBYSNo" class="text-danger"></span>
+        <label asp-for="Durum" class="form-label"></label>
+        <select asp-for="Durum" class="form-select" asp-items="Html.GetEnumSelectList<MalzemeDurum>()"></select>
+        <span asp-validation-for="Durum" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Ozellikler" class="form-label"></label>
@@ -23,19 +119,14 @@
         <span asp-validation-for="Ozellikler" class="text-danger"></span>
     </div>
     <div class="mb-3">
+        <label asp-for="EkOzellik" class="form-label"></label>
+        <textarea asp-for="EkOzellik" class="form-control"></textarea>
+        <span asp-validation-for="EkOzellik" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
         <label asp-for="Adet" class="form-label"></label>
         <input asp-for="Adet" class="form-control" />
         <span asp-validation-for="Adet" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="DepoId" class="form-label"></label>
-        <select asp-for="DepoId" class="form-select" asp-items="@(ViewData["DepoId"] as SelectList)"></select>
-        <span asp-validation-for="DepoId" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Durum" class="form-label"></label>
-        <select asp-for="Durum" class="form-select" asp-items="Html.GetEnumSelectList<MalzemeDurum>()"></select>
-        <span asp-validation-for="Durum" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Aciklama" class="form-label"></label>

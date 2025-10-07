@@ -25,6 +25,51 @@ public class Malzeme
     [MaxLength(500)]
     public string? Aciklama { get; set; }
 
+    [MaxLength(200)]
+    public string? BarKod { get; set; }
+
+    [MaxLength(200)]
+    public string? Cinsi { get; set; }
+
+    [MaxLength(500)]
+    public string? EkOzellik { get; set; }
+
+    [MaxLength(200)]
+    public string? MarkaAdi { get; set; }
+
+    [MaxLength(200)]
+    public string? Modeli { get; set; }
+
+    [MaxLength(200)]
+    public string? OlcuAdi { get; set; }
+
+    [MaxLength(100)]
+    public string? SicilNo { get; set; }
+
+    [MaxLength(200)]
+    public string? SeriNo { get; set; }
+
+    [MaxLength(200)]
+    public string? FisSonDurum { get; set; }
+
+    [MaxLength(200)]
+    public string? VerildigiYerBirim { get; set; }
+
+    [MaxLength(11)]
+    public string? TcNumarasi { get; set; }
+
+    [MaxLength(100)]
+    public string? FisNo { get; set; }
+
+    [Column(TypeName = "datetime2")]
+    public DateTime? Tarih { get; set; }
+
+    [MaxLength(200)]
+    public string? AmbarAdi { get; set; }
+
+    [Column(TypeName = "datetime2")]
+    public DateTime? KurumGirisTarihi { get; set; }
+
     [Required]
     public int DepoId { get; set; }
 
